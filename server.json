@@ -1,0 +1,15 @@
+{
+  "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
+  "name": "io.github.hollyhr/hollyhr",
+  "description": "Governed HR records and confirmed time-off actions for UK SMEs.",
+  "title": "HollyHR",
+  "version": "1.0.0",
+  "websiteUrl": "https://developers.hollyhr.com/mcp",
+  "remotes": [
+    {
+      "type": "streamable-http",
+      "url": "https://app.hollyhr.com/api/mcp"
+    }
+  ]
+}
+
