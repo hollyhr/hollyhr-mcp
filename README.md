@@ -2,6 +2,8 @@
 
 The official hosted Model Context Protocol server for HollyHR.
 
+[![Validate discovery metadata](https://github.com/hollyhr/hollyhr-mcp/actions/workflows/check.yml/badge.svg)](https://github.com/hollyhr/hollyhr-mcp/actions/workflows/check.yml)
+
 HollyHR gives UK small and medium-sized organisations a dependable HR record
 that approved AI assistants and agents can read and update safely. API, MCP and
 Ask Holly are normal product capabilities rather than enterprise add-ons.
@@ -72,6 +74,18 @@ HollyHR is published under the verified first-party namespace
 `io.github.hollyhr/hollyhr` in the
 [official MCP Registry](https://registry.modelcontextprotocol.io/v0.1/servers?search=hollyhr).
 The canonical machine-readable metadata is checked in as [`server.json`](./server.json).
+
+Glama also auto-ingests the official Registry record as a
+[hosted HollyHR connector](https://glama.ai/mcp/connectors/io.github.hollyhr/hollyhr).
+That external profile is a discovery route; its current verification and test
+state are controlled by Glama and should be read on the profile itself.
+
+## Maintenance and contributions
+
+Paul Gould (`@paulgould`) is the accountable maintainer. See
+[MAINTENANCE.md](./MAINTENANCE.md) for the review and versioning policy and
+[CONTRIBUTING.md](./CONTRIBUTING.md) before proposing a documentation or
+discovery-metadata change.
 
 ## Support and security
 
