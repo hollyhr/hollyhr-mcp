@@ -20,10 +20,18 @@ Your client opens HollyHR in a browser so a System Admin can sign in and approve
 the requested scopes. There are no API keys to paste into the MCP client.
 
 - [MCP setup guide](https://developers.hollyhr.com/mcp)
+- [Developer home](https://www.hollyhr.com/developers)
 - [Developer documentation](https://developers.hollyhr.com)
 - [REST API reference](https://developers.hollyhr.com/reference)
 - [Status](https://status.hollyhr.com)
 - [HollyHR](https://www.hollyhr.com)
+
+Runnable API, webhook and MCP examples live in
+[`hollyhr-api-examples`](https://github.com/hollyhr/hollyhr-api-examples). The
+generated TypeScript client and versioned OpenAPI contract live in
+[`hollyhr-api-client`](https://github.com/hollyhr/hollyhr-api-client). You can
+also explore the API through HollyHR's
+[public Postman workspace](https://www.postman.com/hollyhr/workspace/hollyhr-public-api~73d93b69-5cda-44a4-b491-db7062f974bd/overview).
 
 ## What agents can do
 
@@ -80,6 +88,11 @@ Glama also auto-ingests the official Registry record as a
 That external profile is a discovery route; its current verification and test
 state are controlled by Glama and should be read on the profile itself.
 
+HollyHR also maintains the
+[HollyHR connector on Smithery](https://smithery.ai/servers/hollyhr/hollyhr)
+under its claimed `hollyhr` namespace. The hosted endpoint and first-party
+Registry identity above remain the canonical connection contract.
+
 ## Maintenance and contributions
 
 Paul Gould (`@paulgould`) is the accountable maintainer. See
@@ -95,3 +108,5 @@ discovery-metadata change.
 
 This repository contains public discovery documentation and examples. The
 hosted HollyHR service remains the implementation and source of product truth.
+See the [HollyHR GitHub organisation](https://github.com/hollyhr) for the other
+maintained public projects.
