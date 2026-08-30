@@ -36,4 +36,18 @@ assert.ok(
   "README is missing the hosted Glama connector discovery link",
 );
 
+for (const [label, url] of [
+  ["developer home", "https://www.hollyhr.com/developers"],
+  ["GitHub organisation", "https://github.com/hollyhr"],
+  ["API examples", "https://github.com/hollyhr/hollyhr-api-examples"],
+  ["SDK source", "https://github.com/hollyhr/hollyhr-api-client"],
+  [
+    "Postman workspace",
+    "https://www.postman.com/hollyhr/workspace/hollyhr-public-api~73d93b69-5cda-44a4-b491-db7062f974bd/overview",
+  ],
+  ["Smithery connector", "https://smithery.ai/servers/hollyhr/hollyhr"],
+]) {
+  assert.ok(readme.includes(url), `README is missing the ${label} link`);
+}
+
 console.log(`metadata check passed: ${expected.name}@${expected.version}`);
