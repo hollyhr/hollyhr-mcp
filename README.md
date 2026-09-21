@@ -19,6 +19,21 @@ https://app.hollyhr.com/api/mcp
 Your client opens HollyHR in a browser so a System Admin can sign in and approve
 the requested scopes. There are no API keys to paste into the MCP client.
 
+### Cursor and Grok Bot
+
+Install **HollyHR** from the Cursor Marketplace at user or project level. The
+same marketplace plugin is available to Cursor's Grok Bot. On first use, choose
+**Authenticate**, sign in to HollyHR in the browser window and approve access
+to the intended organisation.
+
+For local verification before a Marketplace release, clone this repository
+inside `~/.cursor/plugins/local/hollyhr`, reload Cursor and confirm that the
+HollyHR MCP server appears in **Customize**. The plugin contains no executable
+runtime, API key or stored HollyHR credential: it points the client to the
+first-party hosted endpoint below and identifies a public, PKCE-only OAuth
+client. The client ID is public metadata, not a credential; no client secret
+exists. OAuth consent and normal HollyHR permissions remain authoritative.
+
 - [MCP setup guide](https://developers.hollyhr.com/mcp)
 - [Developer home](https://www.hollyhr.com/developers)
 - [Developer documentation](https://developers.hollyhr.com)
@@ -82,6 +97,12 @@ HollyHR is published under the verified first-party namespace
 `io.github.hollyhr/hollyhr` in the
 [official MCP Registry](https://registry.modelcontextprotocol.io/v0.1/servers?search=hollyhr).
 The canonical machine-readable metadata is checked in as [`server.json`](./server.json).
+
+The Cursor package is described by
+[`/.cursor-plugin/plugin.json`](./.cursor-plugin/plugin.json) and
+[`/mcp.json`](./mcp.json). Cursor and Grok Bot use the same first-party hosted
+endpoint, OAuth grant and tool catalogue; the package does not proxy or copy HR
+data.
 
 Glama also auto-ingests the official Registry record as a
 [hosted HollyHR connector](https://glama.ai/mcp/connectors/io.github.hollyhr/hollyhr).
