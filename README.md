@@ -30,8 +30,9 @@ For local verification before a Marketplace release, clone this repository
 inside `~/.cursor/plugins/local/hollyhr`, reload Cursor and confirm that the
 HollyHR MCP server appears in **Customize**. The plugin contains no executable
 runtime, API key or stored HollyHR credential: it points the client to the
-first-party hosted endpoint below, where OAuth and normal HollyHR permissions
-remain authoritative.
+first-party hosted endpoint below and identifies a public, PKCE-only OAuth
+client. The client ID is public metadata, not a credential; no client secret
+exists. OAuth consent and normal HollyHR permissions remain authoritative.
 
 - [MCP setup guide](https://developers.hollyhr.com/mcp)
 - [Developer home](https://www.hollyhr.com/developers)

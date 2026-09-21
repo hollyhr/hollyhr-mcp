@@ -1,9 +1,20 @@
 {
-  "$schema": "https://agent-plugins.org/schemas/1.0.0/mcp.schema.json",
   "mcpServers": {
     "hollyhr": {
-      "type": "streamable-http",
-      "url": "https://app.hollyhr.com/api/mcp"
+      "type": "http",
+      "url": "https://app.hollyhr.com/api/mcp",
+      "auth": {
+        "CLIENT_ID": "SqegLqGcSRdPiiQGMMEYNsFzRJKeLjnW",
+        "scopes": [
+          "organisation:read",
+          "people:read",
+          "reference:read",
+          "time_off:read",
+          "time_off:write",
+          "mcp:write",
+          "offline_access"
+        ]
+      }
     }
   }
 }

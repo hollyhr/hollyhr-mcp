@@ -40,6 +40,13 @@ Increment `.cursor-plugin/plugin.json` only when the installable package or its
 user-facing setup contract changes, record the change in `CHANGELOG.md`, and
 request Marketplace re-indexing only from a merged default-branch commit.
 
+`mcp.json` uses a public OAuth client with no client secret. Its registered
+redirects are Cursor's documented web/agent callback and fixed desktop loopback
+callback. Keep its requested scopes equal to the read-first set plus confirmed
+time-off writes and `offline_access`; the client ID is public metadata, while
+every actual grant remains user-specific, consented, revocable and PKCE-bound.
+Do not replace this with a shared bearer token or confidential secret.
+
 Keep these states separate in release evidence: repository package, local
 Cursor or Grok Bot qualification, Marketplace submission, provider approval,
 public listing and end-user adoption. A successful OAuth connection is not a

@@ -13,8 +13,17 @@ const expected = Object.freeze({
   repository: "https://github.com/hollyhr/hollyhr-mcp",
   homepage: "https://www.hollyhr.com",
   endpoint: "https://app.hollyhr.com/api/mcp",
-  transport: "streamable-http",
-  mcpSchema: "https://agent-plugins.org/schemas/1.0.0/mcp.schema.json",
+  transport: "http",
+  clientId: "SqegLqGcSRdPiiQGMMEYNsFzRJKeLjnW",
+  scopes: [
+    "organisation:read",
+    "people:read",
+    "reference:read",
+    "time_off:read",
+    "time_off:write",
+    "mcp:write",
+    "offline_access",
+  ],
 });
 
 const manifestKeys = new Set([
@@ -30,6 +39,7 @@ const manifestKeys = new Set([
   "logo",
   "keywords",
   "category",
+  "tags",
   "mcpServers",
 ]);
 
@@ -117,7 +127,7 @@ export async function validateCursorPlugin(repoRoot) {
     expectEqual(manifest.homepage, expected.homepage, "homepage", errors);
     expectEqual(manifest.repository, expected.repository, "repository", errors);
     expectEqual(manifest.license, "MIT", "license identifier", errors);
-    expectEqual(manifest.category, "productivity", "category", errors);
+    expectEqual(manifest.category, "integrations", "category", errors);
     expectEqual(
       manifest.mcpServers,
       "./mcp.json",
@@ -159,6 +169,14 @@ export async function validateCursorPlugin(repoRoot) {
     ) {
       errors.push("keywords must be unique lowercase discovery terms");
     }
+    if (
+      !Array.isArray(manifest.tags) ||
+      manifest.tags.length < 3 ||
+      new Set(manifest.tags).size !== manifest.tags.length ||
+      manifest.tags.some((tag) => !/^[a-z0-9-]+$/u.test(tag))
+    ) {
+      errors.push("tags must be unique lowercase discovery terms");
+    }
 
     for (const [label, relativePath] of [
       ["logo", manifest.logo],
@@ -180,14 +198,9 @@ export async function validateCursorPlugin(repoRoot) {
 
   if (plainObject(mcp)) {
     const topKeys = Object.keys(mcp);
-    if (
-      topKeys.length !== 2 ||
-      !topKeys.includes("$schema") ||
-      !topKeys.includes("mcpServers")
-    ) {
-      errors.push("MCP configuration may contain only $schema and mcpServers");
+    if (topKeys.length !== 1 || topKeys[0] !== "mcpServers") {
+      errors.push("MCP configuration may contain only mcpServers");
     }
-    expectEqual(mcp.$schema, expected.mcpSchema, "MCP schema", errors);
 
     const serverNames = plainObject(mcp.mcpServers)
       ? Object.keys(mcp.mcpServers)
@@ -202,19 +215,50 @@ export async function validateCursorPlugin(repoRoot) {
     } else {
       const serverKeys = Object.keys(server);
       if (
-        serverKeys.length !== 2 ||
+        serverKeys.length !== 3 ||
         !serverKeys.includes("type") ||
-        !serverKeys.includes("url")
+        !serverKeys.includes("url") ||
+        !serverKeys.includes("auth")
       ) {
-        errors.push("hollyhr MCP server may contain only type and url");
+        errors.push("hollyhr MCP server may contain only type, url and auth");
       }
       expectEqual(server.type, expected.transport, "MCP transport", errors);
       expectEqual(server.url, expected.endpoint, "MCP endpoint", errors);
+
+      const auth = server.auth;
+      if (!plainObject(auth)) {
+        errors.push("Cursor OAuth configuration must be an object");
+      } else {
+        const authKeys = Object.keys(auth);
+        if (
+          authKeys.length !== 2 ||
+          !authKeys.includes("CLIENT_ID") ||
+          !authKeys.includes("scopes")
+        ) {
+          errors.push(
+            "Cursor OAuth configuration may contain only CLIENT_ID and scopes",
+          );
+        }
+        expectEqual(
+          auth.CLIENT_ID,
+          expected.clientId,
+          "Cursor public client ID",
+          errors,
+        );
+        if (
+          !Array.isArray(auth.scopes) ||
+          JSON.stringify(auth.scopes) !== JSON.stringify(expected.scopes)
+        ) {
+          errors.push(
+            "Cursor OAuth scopes must match the reviewed least-authority profile",
+          );
+        }
+      }
     }
 
     const serialized = JSON.stringify(mcp);
     if (
-      /(?:authorization|bearer|api[_-]?key|client[_-]?secret|password|token|headers|env)/iu.test(
+      /(?:authorization|bearer|api[_-]?key|client[_-]?secret|password|headers|env)/iu.test(
         serialized,
       ) ||
       /\$\{[^}]+\}/u.test(serialized)

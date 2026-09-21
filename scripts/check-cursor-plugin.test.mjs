@@ -64,9 +64,21 @@ test("rejects credential-bearing MCP configuration", async () => {
     value.mcpServers.hollyhr.headers = { Authorization: "Bearer example" };
   });
   const errors = await validateCursorPlugin(root);
-  assert.ok(errors.some((error) => error.includes("only type and url")));
+  assert.ok(errors.some((error) => error.includes("only type, url and auth")));
   assert.ok(
     errors.some((error) => error.includes("must not embed credentials")),
+  );
+});
+
+test("rejects public OAuth client drift", async () => {
+  const root = await fixture();
+  await mutateJson(root, "mcp.json", (value) => {
+    value.mcpServers.hollyhr.auth.CLIENT_ID = "different-client";
+  });
+  assert.ok(
+    (await validateCursorPlugin(root)).some((error) =>
+      error.includes("Cursor public client ID"),
+    ),
   );
 });
 

@@ -20,6 +20,7 @@
     "mcp",
     "productivity"
   ],
-  "category": "productivity",
+  "category": "integrations",
+  "tags": ["mcp", "hr", "people-operations", "time-off"],
   "mcpServers": "./mcp.json"
 }
