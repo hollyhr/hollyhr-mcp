@@ -1,0 +1,25 @@
+{
+  "name": "hollyhr",
+  "displayName": "HollyHR",
+  "description": "Connect Cursor and Grok Bot to tenant-scoped HR records and confirmed time-off actions through HollyHR's hosted MCP server.",
+  "version": "1.0.0",
+  "author": {
+    "name": "HollyHR",
+    "email": "support@hollyhr.com"
+  },
+  "publisher": "HollyHR",
+  "homepage": "https://www.hollyhr.com",
+  "repository": "https://github.com/hollyhr/hollyhr-mcp",
+  "license": "MIT",
+  "logo": "assets/logo.svg",
+  "keywords": [
+    "hr",
+    "human-resources",
+    "people",
+    "time-off",
+    "mcp",
+    "productivity"
+  ],
+  "category": "productivity",
+  "mcpServers": "./mcp.json"
+}

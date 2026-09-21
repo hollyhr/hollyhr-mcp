@@ -21,3 +21,7 @@ jobs:
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
       - name: Validate public metadata
         run: node scripts/check-metadata.mjs
+      - name: Test Cursor plugin validator
+        run: node --test scripts/check-cursor-plugin.test.mjs
+      - name: Validate Cursor plugin package
+        run: node scripts/check-cursor-plugin.mjs

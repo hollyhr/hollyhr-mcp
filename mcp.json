@@ -1,0 +1,9 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/mcp.schema.json",
+  "mcpServers": {
+    "hollyhr": {
+      "type": "streamable-http",
+      "url": "https://app.hollyhr.com/api/mcp"
+    }
+  }
+}
